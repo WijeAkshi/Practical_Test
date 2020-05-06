@@ -29,12 +29,12 @@ $(document).on("click", "#btnSave", function(event) {
 		data : $("#formPayment").serialize(),
 		dataType : "text",
 		complete : function(response, status) {
-			onItemSaveComplete(response.responseText, status);
+			onPaymentSaveComplete(response.responseText, status);
 		}
 	});
 });
 
-function onItemSaveComplete(response, status) {
+function onPaymentSaveComplete(response, status) {
 	
 	if (status == "success") {
 		
@@ -63,7 +63,7 @@ function onItemSaveComplete(response, status) {
 // UPDATE==========================================
 $(document).on("click",".btnUpdate",function(event) {
 	
-			$("#hidPaymentIDSave").val($(this).closest("tr").find('#hidPaymentIDSave').val());
+			$("#hidPaymentIDSave").val($(this).closest("tr").find('#hidIDUpdate').val());
 			$("#app_Id").val($(this).closest("tr").find('td:eq(0)').text());
 			$("#cardType").val($(this).closest("tr").find('td:eq(1)').text());
 			$("#nameOnCard").val($(this).closest("tr").find('td:eq(2)').text());
@@ -71,7 +71,7 @@ $(document).on("click",".btnUpdate",function(event) {
 			$("#phone").val($(this).closest("tr").find('td:eq(4)').text());
 			$("#expdate").val($(this).closest("tr").find('td:eq(5)').text());
 			$("#amount").val($(this).closest("tr").find('td:eq(6)').text());
-			$("#status").val($(this).closest("tr").find('td:eq(7)').text());
+			
 		});
 
 // REMOVE ====================================================
@@ -83,11 +83,11 @@ $(document).on("click", ".btnRemove", function(event) {
 		data : "id=" + $(this).data("paymentid"),
 		dataType : "text",
 		complete : function(response, status) {
-			onItemDeleteComplete(response.responseText, status);
+			onPaymentDeleteComplete(response.responseText, status);
 		}
 	});
 });
-function onItemDeleteComplete(response, status) {
+function onPaymentDeleteComplete(response, status) {
 	if (status == "success") {
 		var resultSet = JSON.parse(response);
 		if (resultSet.status.trim() == "success") {
@@ -111,7 +111,7 @@ function onItemDeleteComplete(response, status) {
 function validateItemForm() {
 	// appointment id
 	if ($("#app_Id").val().trim() == "") {
-		return "Insert Item Code.";
+		return "Insert appointment id.";
 	}
 	// card type
 	if ($("#cardType").val().trim() == "") {

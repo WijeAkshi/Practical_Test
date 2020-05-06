@@ -18,7 +18,7 @@ public class PaymentDetails {
 	}
 
 	public String insertPaymentDetails(String app_Id, String cardType, String nameOnCard, String cardno, String phone,
-			String expdate, String amount, String status) {
+			String expdate, String amount) {
 		String output = "";
 		try {
 			Connection con = connect();
@@ -27,8 +27,8 @@ public class PaymentDetails {
 				return "Error while connecting to the database for inserting.";
 			}
 			// create a prepared statement
-			String query = " insert into paymentdetails (`id`,`app_Id`,`cardType`,`nameOnCard`,`cardno`,`phone`,`expdate`,`amount`,`status`)"
-					+ " values (?,?, ?, ?, ?, ?, ?, ?,?)";
+			String query = " insert into paymentdetails (`id`,`app_Id`,`cardType`,`nameOnCard`,`cardno`,`phone`,`expdate`,`amount`)"
+					+ " values (?,?, ?, ?, ?, ?, ?, ?)";
 			PreparedStatement preparedStmt = con.prepareStatement(query);
 			// binding values
 			preparedStmt.setInt(1, 0);
@@ -39,7 +39,7 @@ public class PaymentDetails {
 			preparedStmt.setString(6, phone);
 			preparedStmt.setDate(7, java.sql.Date.valueOf(expdate));
 			preparedStmt.setDouble(8, Double.parseDouble(amount));
-			preparedStmt.setString(9, status);
+			
 
 			// execute the statement
 			preparedStmt.execute();
@@ -61,7 +61,7 @@ public class PaymentDetails {
 					return "Error while connecting to the database for reading.";
 				}
 				// Prepare the html table to be displayed
-				output = "<table border=\"1\"><tr> <th>AppoID</th> <th>CarsType</th> <th>Name</th> <th>cardno</th> <th>Phone</th ><th>Exp_date</th> <th>Amount</th> <th>Status</th><th>Update</th><th>Remove</th> </tr>";
+				output = "<table border='1'><tr> <th>AppoID</th> <th>CarsType</th> <th>Name</th> <th>cardno</th> <th>Phone</th ><th>Exp_date</th> <th>Amount</th> <th>Update</th><th>Remove</th> </tr>";
 				String query = "select * from paymentdetails";
 				Statement stmt = con.createStatement();
 				ResultSet rs = stmt.executeQuery(query);
@@ -75,17 +75,17 @@ public class PaymentDetails {
 					String phone = Integer.toString(rs.getInt("phone"));
 					Date expdate = rs.getDate("expdate");
 					String amount = Double.toString(rs.getDouble("amount"));
-					String status = rs.getString("status");
+					
 					// Add into the html table
 					output += "<tr><td><input id='hidIDUpdate' name='hidIDUpdate' type='hidden' value='" + id + "'>"
-					 + app_Id + "</td>";
+					                 + app_Id + "</td>";
 					output += "<td>" + cardType + "</td>";
 					output += "<td>" + nameOnCard + "</td>";
 					output += "<td>" + cardno + "</td>";
 					output += "<td>" + phone + "</td>";
 					output += "<td>" + expdate + "</td>";
 					output += "<td>" + amount + "</td>";
-					output += "<td>" + status + "</td>";
+					
 					// buttons
 					output += "<td><input name='btnUpdate' type='button' value='Update' class='btnUpdate btn btn-secondary'></td>"
 							+ "<td><input name='btnRemove' type='button' value='Remove' class='btnRemove btn btn-danger' data-paymentid='"
@@ -102,7 +102,7 @@ public class PaymentDetails {
 			return output;
 	}
 
-		public String updatePaymentDetails(String id, String app_Id, String cardType, String nameOnCard, String cardno, String phone, String expdate, String amount, String status) {
+		public String updatePaymentDetails(String id, String app_Id, String cardType, String nameOnCard, String cardno, String phone, String expdate, String amount) {
 			String output = "";
 			try {
 				Connection con = connect();
@@ -110,7 +110,7 @@ public class PaymentDetails {
 					return "Error while connecting to the database for updating.";
 				}
 				// create a prepared statement
-				String query = "UPDATE paymentdetails SET app_Id=?,cardType=?,nameOnCard=?,cardno=?,phone=?,expdate=?,amount=?,status=? WHERE id=?";
+				String query = "UPDATE paymentdetails SET app_Id=?,cardType=?,nameOnCard=?,cardno=?,phone=?,expdate=?,amount=? WHERE id=?";
 				PreparedStatement preparedStmt = con.prepareStatement(query);
 				// binding values
 				preparedStmt.setString(1, app_Id);
@@ -120,8 +120,8 @@ public class PaymentDetails {
 				preparedStmt.setInt(5, Integer.parseInt(phone));
 				preparedStmt.setDate(6, java.sql.Date.valueOf(expdate));
 				preparedStmt.setDouble(7, Double.parseDouble(amount));
-				preparedStmt.setString(8, status);
-				preparedStmt.setInt(9, Integer.parseInt(id));
+				
+				preparedStmt.setInt(8, Integer.parseInt(id));
 
 				// execute the statement
 				preparedStmt.execute();

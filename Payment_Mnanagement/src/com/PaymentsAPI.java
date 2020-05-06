@@ -73,8 +73,9 @@ public class PaymentsAPI extends HttpServlet {
 				request.getParameter("cardno"),
 				request.getParameter("phone"),
 				request.getParameter("expdate"),
-				request.getParameter("amount"),
-				request.getParameter("status"));
+				request.getParameter("amount")
+				);
+		
 				response.getWriter().write(output); 
 
 	}
@@ -86,9 +87,16 @@ public class PaymentsAPI extends HttpServlet {
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		Map paras = getParasMap(request);
-		String output = paymentdetails.updatePaymentDetails(paras.get("hidPaymentIDSave").toString(), paras.get("app_Id").toString(),
-				paras.get("cardType").toString(), paras.get("nameOnCard").toString(), paras.get("cardno").toString(), paras.get("phone").toString(), 
-				paras.get("expdate").toString(), paras.get("amount").toString(), paras.get("status").toString());
+		String output = paymentdetails.updatePaymentDetails(
+				paras.get("hidPaymentIDSave").toString(), 
+				paras.get("app_Id").toString(),
+				paras.get("cardType").toString(),
+				paras.get("nameOnCard").toString(),
+				paras.get("cardno").toString(),
+				paras.get("phone").toString(), 
+				paras.get("expdate").toString(),
+				paras.get("amount").toString());
+		
 		response.getWriter().write(output);
 	}
 

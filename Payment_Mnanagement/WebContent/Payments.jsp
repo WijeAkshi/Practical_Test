@@ -40,8 +40,7 @@
 					Amount: <input id="amount" name="amount" type="text"
 						class="form-control form-control-sm"> <br>
 						
-					Status: <input id="status" name="status" type="text"
-						class="form-control form-control-sm"> <br>
+					
 						
 					 <input id="btnSave" name="btnSave" type="button" value="Save"
 						class="btn btn-primary">
